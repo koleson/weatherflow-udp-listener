@@ -532,14 +532,7 @@ def influxdb_publish(event, data):
     from influxdb import InfluxDBClient
 
     try:
-        client = InfluxDBClient(url=args.influxdb_url,
-	#			host=args.influxdb_host,
-        #                       port=args.influxdb_port,
-        #                       username=args.influxdb_user,
-        #                       password=args.influxdb_pass,
-				token=args.influxdb_token,
-				org=args.influxdb_org)
-        #                        database=args.influxdb_db)
+        client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org)
         payload = {}
         payload['measurement'] = event
 
