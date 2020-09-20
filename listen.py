@@ -548,7 +548,7 @@ def influxdb_publish(event, data):
         write_api.write(bucket=args.influxdb_bucket, record=point)
         
         if args.verbose:
-            print("Wrote to InfluxDB (%s; bucket %s)" % (args.influxdb_url, args.influxdb_bucket))
+            print("Wrote to InfluxDB (%s; org %s, bucket %s)" % (args.influxdb_url, args.influxdb_org, args.influxdb_bucket))
             
         if args.influxdb_check:
           print("reading back from InfluxDB")
