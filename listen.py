@@ -548,7 +548,12 @@ def influxdb_publish(event, data):
         # kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
         # kmo 2020-09-20 00h46:  to my surprise, it is:
         # https://github.com/influxdata/influxdb-client-python/blob/master/influxdb_client/client/write/point.py
-        point = Point(payload)
+        point = Point(event).tag("source", "weatherflow-udp-listener").time(data['timestamp'], WritePrecision.MS)
+        
+        for key in data.keys():
+            point.field(key, data[key])
+            if args.verbose:
+               print("added field %s to point" % key)
         
         if args.verbose:
             print("writing point with payload %s" % payload)
