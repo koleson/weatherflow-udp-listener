@@ -533,9 +533,9 @@ def influxdb_publish(event, data):
 
     try:
         client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org)
+        
         payload = {}
         payload['measurement'] = event
-
         payload['time']   = data['timestamp']
         payload['fields'] = data
 
@@ -543,8 +543,11 @@ def influxdb_publish(event, data):
             print ("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
 
         # kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
+        # kmo 2020-09-20 00h46:  to my surprise, it is:
+        # https://github.com/influxdata/influxdb-client-python/blob/master/influxdb_client/client/write/point.py
         point = Point(payload)
         
+        print("writing point with payload %s" % payload)
         write_api = client.write_api()
         
         write_api.write(args.influxdb_bucket, args.influxdb_org, point)
