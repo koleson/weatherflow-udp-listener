@@ -529,7 +529,7 @@ def process_hub_status(data):
 #----------------
 
 def influxdb_publish(event, data):
-    from influxdb_client import InfluxDBClient
+    from influxdb_client import InfluxDBClient, Point, WritePrecision
 
     try:
         client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org)
@@ -542,8 +542,12 @@ def influxdb_publish(event, data):
         if args.verbose:
             print ("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
 
-        # write_points() allows us to pass in a precision with the timestamp
-        client.write_points([payload], time_precision='s')
+	# kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
+	point = Point(payload)
+
+	write_api = client.write_api(write_options=SYNCHRONOUS)
+	
+	write_api.write(args.influxdb_bucket, args.influxdb_org, point)
 
     except Exception as e:
         print("Failed to connect to InfluxDB: %s" % e)
