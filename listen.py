@@ -542,7 +542,7 @@ def influxdb_publish(event, data):
                 print("added field %s to point with value %s" % (key, data[key]))
         
         if args.verbose:
-            print("publishing %s to influxdb (%s): %s" % (event,args.influxdb_url, point))
+            print("publishing %s to influxdb (%s)" % (event,args.influxdb_url))
         
         write_api = client.write_api(write_options=SYNCHRONOUS)
         write_api.write(bucket=args.influxdb_bucket, record=point)
