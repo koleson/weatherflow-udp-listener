@@ -530,7 +530,7 @@ def process_hub_status(data):
 
 def influxdb_publish(event, data):
     from influxdb_client import InfluxDBClient, Point, WritePrecision
-
+    print("influxdb_publish")
     try:
         client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org)
         
@@ -540,19 +540,21 @@ def influxdb_publish(event, data):
         payload['fields'] = data
 
         if args.verbose:
-            print ("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
+            print("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
 
         # kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
         # kmo 2020-09-20 00h46:  to my surprise, it is:
         # https://github.com/influxdata/influxdb-client-python/blob/master/influxdb_client/client/write/point.py
         point = Point(payload)
         
-        print("writing point with payload %s" % payload)
-        write_api = client.write_api()
+        if args.verbose:
+            print("writing point with payload %s" % payload)
         
+        write_api = client.write_api()
         write_api.write(args.influxdb_bucket, args.influxdb_org, point)
-
-        print("Wrote to InfluxDB (%s)" % args.influxdb_url)
+        
+        if args.verbose:
+            print("Wrote to InfluxDB (%s)" % args.influxdb_url)
 
     except Exception as e:
         print("Failed to connect to InfluxDB: %s" % e)
