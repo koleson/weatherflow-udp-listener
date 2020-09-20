@@ -163,6 +163,9 @@ def process_evt_precip(data):
 
     if args.influxdb:
         influxdb_publish(topic, evt_precip)
+    
+    if args.influxdb2:
+        influxdb2_publish(topic, evt_precip)
 
     return data
 
@@ -196,6 +199,9 @@ def process_evt_strike(data):
 
     if args.influxdb:
         influxdb_publish(topic, evt_strike)
+        
+    if args.influxdb2:
+        influxdb2_publish(topic, evt_strike)
 
     return data
 
@@ -229,6 +235,9 @@ def process_rapid_wind(data):
 
     if args.influxdb:
         influxdb_publish(topic, rapid_wind)
+    
+    if args.influxdb2:
+        influxdb2_publish(topic, rapid_wind)
 
     return data
 
@@ -271,6 +280,9 @@ def process_obs_air(data):
 
     if args.influxdb:
         influxdb_publish(topic, obs_air)
+    
+    if args.influxdb2:
+        influxdb2_publish(topic, obs_air)
 
     return data
 
@@ -336,6 +348,9 @@ def process_obs_st(data):
 
     if args.influxdb:
         influxdb_publish(topic, obs_st)
+    
+    if args.influxdb2:
+        influxdb2_publish(topic, obs_st)
 
     return data
 
@@ -389,6 +404,9 @@ def process_obs_sky(data):
 
     if args.influxdb:
         influxdb_publish(topic, obs_sky)
+    
+    if args.influxdb:
+        influxdb2_publish(topic, obs_sky)
 
     return data
 
@@ -477,6 +495,9 @@ def process_device_status(data):
 
     if args.influxdb:
         influxdb_publish('device_status', device_status)
+    
+    if args.influxdb2:
+        influxdb2_publish('device_status', device_status)
 
     return data
 
@@ -529,6 +550,9 @@ def process_hub_status(data):
 
     if args.influxdb:
         influxdb_publish(topic, hub_status)     # careful here, might need to hub_status.pop("foo", None) for arrays
+    
+    if args.influxdb2:
+        influxdb2_publish(topic, hub_status)     # careful here, might need to hub_status.pop("foo", None) for arrays
 
     return data
 
