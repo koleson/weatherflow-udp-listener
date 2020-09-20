@@ -529,18 +529,10 @@ def process_hub_status(data):
 #----------------
 
 def influxdb_publish(event, data):
-    print("influxdb_publish imports...")
     from influxdb_client import InfluxDBClient, Point, WritePrecision
     from influxdb_client.client.write_api import SYNCHRONOUS
-    print("influxdb_publish")
     try:
         client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org)
-        
-        # payload = {}
-        # payload['measurement'] = event
-        # payload['time']   = data['timestamp']
-        # payload['tags']   = 'weatherflow-udp-listener-tag'
-        # payload['points'] = [data]
         
         point = Point(event).tag("source", "weatherflow-udp-listener").time(data['timestamp'], WritePrecision.MS)
         
