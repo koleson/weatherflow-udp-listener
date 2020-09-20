@@ -551,6 +551,7 @@ def influxdb_publish(event, data):
             print("Wrote to InfluxDB (%s; bucket %s)" % (args.influxdb_url, args.influxdb_bucket))
             
         if args.influxdb_check:
+          print("reading back from InfluxDB")
           query_api = client.query_api()
           tables = query_api.query('from(bucket:"%s") |> range(start: -1m)' % args.influxdb_bucket)
           for table in tables:
