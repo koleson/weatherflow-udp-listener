@@ -539,6 +539,7 @@ def influxdb_publish(event, data):
         payload = {}
         payload['measurement'] = event
         payload['time']   = data['timestamp']
+        payload['tags']   = 'weatherflow-udp-listener-tag'
         payload['fields'] = data
 
         print("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
