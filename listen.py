@@ -549,6 +549,15 @@ def influxdb_publish(event, data):
         
         if args.verbose:
             print("Wrote to InfluxDB (%s; bucket %s)" % (args.influxdb_url, args.influxdb_bucket))
+            
+        if args.influxdb_check:
+          query_api = client.query_api()
+          tables = query_api.query('from(bucket:"%s") |> range(start: -1m)' % args.influxdb_bucket)
+          for table in tables:
+              print(table)
+              for record in table.records:
+                  # process record
+                  print(record.values)
 
     except Exception as e:
         print("Failed to connect to InfluxDB: %s" % e)
@@ -722,6 +731,7 @@ for --limit, possibilities are:
     parser.add_argument("--influxdb_org",   dest="influxdb_org",   action="store",      default="smartweather",         help="InfluxDB organization name")
     parser.add_argument("--influxdb_bucket", dest="influxdb_bucket", action="store", default="weatherflow", help="InfluxDB destination bucket name")
     parser.add_argument("--influxdb_db",   dest="influxdb_db",   action="store",      default="smartweather",         help="InfluxDB database name")
+    parser.add_argument("--influxdb_check", dest="influxdb_check", action="store", help="check influxdb operation by querying data immediately after publishing")
 
     parser.add_argument("--mqtt_user", dest="mqtt_user", action="store", help="MQTT username (if needed)")
     parser.add_argument("--mqtt_pass", dest="mqtt_pass", action="store", help="MQTT password (if MQTT_USER has a password)")
