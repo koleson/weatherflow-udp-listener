@@ -719,6 +719,7 @@ for --limit, possibilities are:
     parser.add_argument("--influxdb_pass", dest="influxdb_pass", action="store",                                      help="InfluxDB password")
     parser.add_argument("--influxdb_token", dest="influxdb_token", action="store",                                      help="InfluxDB token")
     parser.add_argument("--influxdb_org",   dest="influxdb_org",   action="store",      default="smartweather",         help="InfluxDB organization name")
+    parser.add_argument("--influxdb_bucket", dest="influxdb_bucket", action="store", default="weatherflow", help="InfluxDB destination bucket name")
     parser.add_argument("--influxdb_db",   dest="influxdb_db",   action="store",      default="smartweather",         help="InfluxDB database name")
 
     parser.add_argument("--mqtt_user", dest="mqtt_user", action="store", help="MQTT username (if needed)")
