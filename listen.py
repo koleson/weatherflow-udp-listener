@@ -611,7 +611,7 @@ def influxdb2_publish(event, data):
         
         # write to API
         write_api = client.write_api(write_options=SYNCHRONOUS)
-        write_api.write(bucket=args.influxdb_bucket, record=point)
+        write_api.write(bucket=args.influxdb2_bucket, record=point)
 
     except Exception as e:
         print("Failed to connect to InfluxDB: %s" % e)
