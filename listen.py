@@ -532,7 +532,7 @@ def influxdb_publish(event, data):
     from influxdb import InfluxDBClient
 
     try:
-        client = InfluxDBClient(url=args.influxdb_url
+        client = InfluxDBClient(url=args.influxdb_url,
 	#			host=args.influxdb_host,
         #                       port=args.influxdb_port,
         #                       username=args.influxdb_user,
