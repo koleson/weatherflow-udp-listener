@@ -538,8 +538,8 @@ def influxdb_publish(event, data):
         #                       username=args.influxdb_user,
         #                       password=args.influxdb_pass,
 				token=args.influxdb_token,
-				org=args.influxdb_org,
-                                database=args.influxdb_db)
+				org=args.influxdb_org)
+        #                        database=args.influxdb_db)
         payload = {}
         payload['measurement'] = event
 
