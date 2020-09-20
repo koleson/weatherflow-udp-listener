@@ -532,7 +532,7 @@ def influxdb_publish(event, data):
     from influxdb_client import InfluxDBClient, Point, WritePrecision
     from influxdb_client.client.write_api import SYNCHRONOUS
     try:
-        client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org)
+        client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org, debug=True)
         
         point = Point(event).tag("source", "weatherflow-udp-listener").time(data['timestamp'], WritePrecision.MS)
         
