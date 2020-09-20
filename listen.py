@@ -539,7 +539,7 @@ def influxdb_publish(event, data):
         for key in data.keys():
             point.field(key, data[key])
             if args.verbose:
-                print("added field %s to point with value %s" % (key, data[key]))
+                print("added field %s : %s" % (key, data[key]))
         
         if args.verbose:
             print("publishing %s to influxdb (%s)" % (event,args.influxdb_url))
