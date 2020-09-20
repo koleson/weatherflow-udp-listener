@@ -529,6 +529,7 @@ def process_hub_status(data):
 #----------------
 
 def influxdb_publish(event, data):
+    print("influxdb_publish imports...")
     from influxdb_client import InfluxDBClient, Point, WritePrecision
     print("influxdb_publish")
     try:
@@ -539,8 +540,8 @@ def influxdb_publish(event, data):
         payload['time']   = data['timestamp']
         payload['fields'] = data
 
-        if args.verbose:
-            print("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
+        print("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
+            
 
         # kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
         # kmo 2020-09-20 00h46:  to my surprise, it is:
