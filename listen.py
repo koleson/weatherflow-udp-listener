@@ -606,7 +606,7 @@ def influxdb2_publish(event, data):
                 print("added field %s : %s" % (key, data[key]))
        
 
-        if (args.influxdb2_debug) or (args.verbose):
+        if args.influxdb2_debug or args.verbose:
             print("publishing event %s to influxdb" % (event))
         
         # write to API
