@@ -43,15 +43,17 @@ optional arguments:
                         address to listen on
   --influxdb            publish to influxdb
   --influxdb_host INFLUXDB_HOST
-                        hostname or ip of InfluxDb HTTP API
+                        hostname or ip of InfluxDB HTTP API
   --influxdb_port INFLUXDB_PORT
-                        port of InfluxDb HTTP API
+                        port of InfluxDB HTTP API
   --influxdb_user INFLUXDB_USER
-                        InfluxDb username
+                        InfluxDB username
   --influxdb_pass INFLUXDB_PASS
-                        InfluxDb password
+                        InfluxDB password
+  --influxdb_token INFLUXDB_TOKEN
+			InfluxDB token
   --influxdb_db INFLUXDB_DB
-                        InfluxDb database name
+                        InfluxDB database / bucket name
   --mqtt_user MQTT_USER
                         MQTT username (if needed)
   --mqtt_pass MQTT_PASS
@@ -530,8 +532,9 @@ def influxdb_publish(event, data):
     try:
         client = InfluxDBClient(host=args.influxdb_host,
                                 port=args.influxdb_port,
-                                username=args.influxdb_user,
-                                password=args.influxdb_pass,
+        #                        username=args.influxdb_user,
+        #                        password=args.influxdb_pass,
+				token=args.influxdb_token
                                 database=args.influxdb_db)
         payload = {}
         payload['measurement'] = event
@@ -712,6 +715,7 @@ for --limit, possibilities are:
     parser.add_argument("--influxdb_port", dest="influxdb_port", action="store",      default=8086,         type=int, help="hostname of InfluxDB HTTP API")
     parser.add_argument("--influxdb_user", dest="influxdb_user", action="store",                                      help="InfluxDB username")
     parser.add_argument("--influxdb_pass", dest="influxdb_pass", action="store",                                      help="InfluxDB password")
+    parser.add_argument("--influxdb_token", dest="influxdb_token", action="store",                                      help="InfluxDB token")
     parser.add_argument("--influxdb_db",   dest="influxdb_db",   action="store",      default="smartweather",         help="InfluxDB database name")
 
     parser.add_argument("--mqtt_user", dest="mqtt_user", action="store", help="MQTT username (if needed)")
