@@ -540,7 +540,7 @@ def influxdb_publish(event, data):
         payload['measurement'] = event
         payload['time']   = data['timestamp']
         payload['tags']   = 'weatherflow-udp-listener-tag'
-        payload['fields'] = data
+        payload['points'] = [data]
 
         print("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
             
@@ -554,7 +554,7 @@ def influxdb_publish(event, data):
             print("writing point with payload %s" % payload)
         
         write_api = client.write_api(write_options=SYNCHRONOUS)
-        write_api.write(args.influxdb_bucket, args.influxdb_org, point)
+        write_api.write(bucket=args.influxdb_bucket, record=point)
         
         if args.verbose:
             print("Wrote to InfluxDB (%s)" % args.influxdb_url)
