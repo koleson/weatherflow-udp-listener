@@ -542,12 +542,12 @@ def influxdb_publish(event, data):
         if args.verbose:
             print ("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
 
-	# kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
-	point = Point(payload)
-
-	write_api = client.write_api(write_options=SYNCHRONOUS)
-	
-	write_api.write(args.influxdb_bucket, args.influxdb_org, point)
+        # kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
+        point = Point(payload)
+        
+        write_api = client.write_api(write_options=SYNCHRONOUS)
+        
+        write_api.write(args.influxdb_bucket, args.influxdb_org, point)
 
     except Exception as e:
         print("Failed to connect to InfluxDB: %s" % e)
