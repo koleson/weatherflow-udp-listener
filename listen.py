@@ -553,7 +553,10 @@ def process_hub_status(data):
     
     if args.influxdb2:
         influxdb2_publish(topic, hub_status)     # careful here, might need to hub_status.pop("foo", None) for arrays
-
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)
+    
     return data
 
 #----------------
