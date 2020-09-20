@@ -529,7 +529,7 @@ def process_hub_status(data):
 #----------------
 
 def influxdb_publish(event, data):
-    from influxdb import InfluxDBClient
+    from influxdb_client import InfluxDBClient
 
     try:
         client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org)
