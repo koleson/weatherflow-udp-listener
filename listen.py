@@ -534,7 +534,7 @@ def influxdb_publish(event, data):
     try:
         client = InfluxDBClient(url=args.influxdb_url, token=args.influxdb_token, org=args.influxdb_org, debug=True)
         
-        point = Point(event).tag("weatherflow-udp-listener").time(data['timestamp'], WritePrecision.MS)
+        point = Point(event).tag("source", "weatherflow-udp-listener").time(data['timestamp'], WritePrecision.MS)
         
         for key in data.keys():
             point.field(key, data[key])
