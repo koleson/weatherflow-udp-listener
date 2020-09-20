@@ -544,7 +544,7 @@ def influxdb_publish(event, data):
         if args.verbose:
             print("publishing %s to influxdb (%s)" % (event,args.influxdb_url))
             import pprint
-            print("point: %s", pprint.pformat(point, indent=4))
+            print("point: %s" % (pprint.pformat(point, indent=4)))
         
         write_api = client.write_api(write_options=SYNCHRONOUS)
         write_api.write(bucket=args.influxdb_bucket, record=point)
