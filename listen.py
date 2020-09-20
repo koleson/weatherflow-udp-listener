@@ -544,16 +544,12 @@ def influxdb_publish(event, data):
 
         print("publishing %s to influxdb [%s:%s]: %s" % (event,args.influxdb_host, args.influxdb_port, payload))
             
-
-        # kmo 2020-09-20 00h26:  this is unlikely to be the right API for Point
-        # kmo 2020-09-20 00h46:  to my surprise, it is:
-        # https://github.com/influxdata/influxdb-client-python/blob/master/influxdb_client/client/write/point.py
         point = Point(event).tag("source", "weatherflow-udp-listener").time(data['timestamp'], WritePrecision.MS)
         
         for key in data.keys():
             point.field(key, data[key])
             if args.verbose:
-               print("added field %s to point" % key)
+               print("added field %s to point with value %s" % (key, data[key])
         
         if args.verbose:
             print("writing point with payload %s" % payload)
@@ -562,7 +558,7 @@ def influxdb_publish(event, data):
         write_api.write(bucket=args.influxdb_bucket, record=point)
         
         if args.verbose:
-            print("Wrote to InfluxDB (%s; bucket %s" % (args.influxdb_url, args.influxdb_bucket))
+            print("Wrote to InfluxDB (%s; bucket %s)" % (args.influxdb_url, args.influxdb_bucket))
 
     except Exception as e:
         print("Failed to connect to InfluxDB: %s" % e)
