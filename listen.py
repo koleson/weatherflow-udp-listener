@@ -166,6 +166,9 @@ def process_evt_precip(data):
     
     if args.influxdb2:
         influxdb2_publish(topic, evt_precip)
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)
 
     return data
 
@@ -202,6 +205,9 @@ def process_evt_strike(data):
         
     if args.influxdb2:
         influxdb2_publish(topic, evt_strike)
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)
 
     return data
 
@@ -238,6 +244,9 @@ def process_rapid_wind(data):
     
     if args.influxdb2:
         influxdb2_publish(topic, rapid_wind)
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)
 
     return data
 
@@ -283,6 +292,9 @@ def process_obs_air(data):
     
     if args.influxdb2:
         influxdb2_publish(topic, obs_air)
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)
 
     return data
 
@@ -351,6 +363,9 @@ def process_obs_st(data):
     
     if args.influxdb2:
         influxdb2_publish(topic, obs_st)
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)
 
     return data
 
@@ -407,6 +422,9 @@ def process_obs_sky(data):
     
     if args.influxdb:
         influxdb2_publish(topic, obs_sky)
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)    
 
     return data
 
@@ -498,7 +516,10 @@ def process_device_status(data):
     
     if args.influxdb2:
         influxdb2_publish('device_status', device_status)
-
+    
+    if args.verbose:
+        print("finished publishing %s" % topic)
+    
     return data
 
 #----------------
