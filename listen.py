@@ -549,6 +549,8 @@ def influxdb_publish(event, data):
         
         write_api.write(args.influxdb_bucket, args.influxdb_org, point)
 
+        print("Wrote to InfluxDB (%s)" % args.influxdb_url)
+
     except Exception as e:
         print("Failed to connect to InfluxDB: %s" % e)
         print("  Payload was: %s" % payload)
