@@ -156,7 +156,7 @@ def process_evt_precip(data):
         mqtt_publish(MQTT_HOST,topic,evt_precip)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_evt_precip", evt_precip)
+        influxdb_publish(topic, evt_precip)
 
     return data
 
@@ -189,7 +189,7 @@ def process_evt_strike(data):
         mqtt_publish(MQTT_HOST,topic,evt_strike)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_evt_strike", evt_strike)
+        influxdb_publish(topic, evt_strike)
 
     return data
 
@@ -222,7 +222,7 @@ def process_rapid_wind(data):
         mqtt_publish(MQTT_HOST,topic,rapid_wind)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_rapid_wind", rapid_wind)
+        influxdb_publish(topic, rapid_wind)
 
     return data
 
@@ -264,7 +264,7 @@ def process_obs_air(data):
         mqtt_publish(MQTT_HOST,topic,obs_air)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_obs_air", obs_air)
+        influxdb_publish(topic, obs_air)
 
     return data
 
@@ -329,7 +329,7 @@ def process_obs_st(data):
         mqtt_publish(MQTT_HOST,topic,obs_st)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_obs_st", obs_st)
+        influxdb_publish(topic, obs_st)
 
     return data
 
@@ -382,7 +382,7 @@ def process_obs_sky(data):
         mqtt_publish(MQTT_HOST,topic,obs_sky)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_obs_sky", obs_sky)
+        influxdb_publish(topic, obs_sky)
 
     return data
 
@@ -470,7 +470,7 @@ def process_device_status(data):
         mqtt_publish(MQTT_HOST,topic,device_status)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_status_" + device_type, device_status)
+        influxdb_publish('device_status', device_status)
 
     return data
 
@@ -522,7 +522,7 @@ def process_hub_status(data):
         mqtt_publish(MQTT_HOST,topic,hub_status)
 
     if args.influxdb:
-        influxdb_publish(MQTT_TOPLEVEL_TOPIC + "_status_hub", hub_status)     # careful here, might need to hub_status.pop("foo", None) for arrays
+        influxdb_publish(topic, hub_status)     # careful here, might need to hub_status.pop("foo", None) for arrays
 
     return data
 
@@ -543,6 +543,7 @@ def influxdb_publish(event, data):
         
         if args.verbose:
             print("publishing %s to influxdb (%s)" % (event,args.influxdb_url))
+            print("point: %s", pprint.pformat(point, indent=4))
         
         write_api = client.write_api(write_options=SYNCHRONOUS)
         write_api.write(bucket=args.influxdb_bucket, record=point)
