@@ -551,7 +551,7 @@ def influxdb_publish(event, data):
         if args.verbose:
             print("writing point with payload %s" % payload)
         
-        write_api = client.write_api()
+        write_api = client.write_api(write_options=SYNCHRONOUS)
         write_api.write(args.influxdb_bucket, args.influxdb_org, point)
         
         if args.verbose:
